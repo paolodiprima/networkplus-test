@@ -1,0 +1,119 @@
+{%extends 'base.html'%}
+
+{% block head %}
+
+{% endblock %}
+
+{%block body%}
+
+<div class="container">
+  <form class="my-4 row  g-3 align-items-center" id="form-id">
+    <!-- row-cols-lg-auto -->
+    <div class="col-2">
+      <!--  <label class="visually-hidden" for="chapter-input">Username</label> -->
+      <div class="input-group">
+        <div class="input-group-text">chapter</div>
+        <input not null  type="text" class="form-control" id="chapter-input" name="chapter" placeholder="" >
+      </div>
+    </div>
+
+    <div class="col-2">
+
+      <div class="input-group">
+        <div class="input-group-text">topic</div>
+        <input type="text" class="form-control" id="topic-input" name="topic" placeholder="" required>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="input-group">
+        <div class="input-group-text">question</div>
+        <input type="text" class="form-control" id="question-input" name="question" placeholder="" required>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="input-group">
+        <div class="input-group-text">answer</div>
+        <input type="text" class="form-control" id="answer-input" name="answer" placeholder="" required>
+      </div>
+    </div>
+    <div class="col-1">
+      <button type="submit" class="btn btn-primary" id="btn-add">ADD</button>
+    </div>
+  </form>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Chapter</th>
+        <th scope="col">Topic</th>
+        <th scope="col">Question</th>
+        <th scope="col">Answer</th>
+        <th scope="col" class="text-secondary">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in data%}
+      <tr>
+        <th scope="row"> {{item.chapter}} </th>
+        <th> {{item.topic}} </th>
+        <th> {{item.question}} </th>
+        <th> {{item.answer}} </th>
+        <th> <button class="btn btn-secondary"  id="{{item.id}}" onclick="delete_question(this.id)">delete</button> </th>
+        {%endfor%}
+
+      </tr>
+
+
+
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+  let form = document.getElementById('form-id')
+  form.addEventListener('submit', function (evn) {
+    evn.preventDefault()
+    let chapter = document.getElementById('chapter-input').value
+    let topic = document.getElementById('topic-input').value
+    let question = document.getElementById('question-input').value
+    let answer = document.getElementById('answer-input').value
+    let request = new XMLHttpRequest();
+    // let data = new FormData(this)
+    var data = {};
+    for (var i = 0, ii = this.length; i < ii; ++i) {
+      var input = this[i];
+      if (input.name) {
+        data[input.name] = input.value;
+      }
+    }
+
+    request.open("POST", "/api-question");
+    request.setRequestHeader("Content-Type", "application/json")
+    request.send(JSON.stringify(data))
+    this.reset();
+
+    request.onreadystatechange = function () {
+       if ( this.readyState == 4  &&  this.status == 200 ){
+        window.location.reload();
+       }     
+     }
+
+  })
+  function delete_question(id){
+    let request = new XMLHttpRequest();
+    let url = "/api-delete/" +id
+    request.open("DELETE", url);
+    request.send();
+    request.onreadystatechange = function () {
+       if ( this.readyState == 4  &&  this.status == 200 ){
+        window.location.reload();
+       }     
+     }
+    
+    
+  }
+
+</script>
+
+{% endblock%}
