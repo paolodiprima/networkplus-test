@@ -83,7 +83,7 @@ def get_examtest():
     ids = db.engine.execute('select id from questions')
     idsList = [row[0] for row in ids]
     
-    # get list of 5 random id
+    # get list of 10 random id
     i = 0
     questionsId = set()
     print(type(questionsId))

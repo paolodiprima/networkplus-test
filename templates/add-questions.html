@@ -71,6 +71,15 @@
   </table>
 </div>
 <script type="text/javascript">
+  let btnAll = document.querySelectorAll(".nav-link")
+  function pillsNav(current) {
+       for (let b of btnAll) {
+          if (b.getAttribute('id') == current) b.classList.add('active')
+          else b.classList.remove('active')
+          
+      }
+  }
+  pillsNav("link2")
   let form = document.getElementById('form-id')
   form.addEventListener('submit', function (evn) {
     evn.preventDefault()
@@ -110,10 +119,8 @@
         window.location.reload();
        }     
      }
-    
-    
   }
-
+  pillsNav("link3")
 </script>
 
 {% endblock%}

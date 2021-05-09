@@ -7,13 +7,13 @@
 {%block body%}
 <div class="container">
     <div class="row">
-        <div class="col-4 d-flex justify-content-center">
+        <div class="col-5 col-md-4 d-flex justify-content-center">
             <h3 class="m-5">Esercitazione Network+</h3>
         </div>
-        <div class="col-4 d-flex justify-content-center">
-            <img src="/static/network+.jpeg" class="m-4" alt="...">
+        <div class="col-1 col-md-4 d-flex justify-content-center ">
+            <img class="d-none d-md-block m-4" src="/static/network+.jpeg"  alt="...">
         </div>
-        <div class="col-4 p-5 justify-content-center">
+        <div class="col-6 col-md-4 p-5 justify-content-center">
             <a class="btn btn-primary" id="newExam" data-bs-toggle="collapse"  href="#examId" role="button" aria-expanded="false" aria-controls="collapseExample">
                 NEW EXAM
             </a>
@@ -46,6 +46,14 @@
   </div>
 
 <script>
+        let btnAll = document.querySelectorAll(".nav-link")
+        function pillsNav(current) {
+            for (let b of btnAll) {
+                if (b.getAttribute('id') == current) b.classList.add('active')
+                else  b.classList.remove('active')
+            }
+        }
+        pillsNav("link2")
         let g_questionList = null
         let divExam = document.getElementById("questionsDiv");
         let btnNewExam = document.getElementById('newExam');
@@ -64,12 +72,12 @@
         function renderQuestions(questionsList){
             
             for (i=0;i < questionsList.length; i++){
-                let areaHTML = `<div class="col-3"> <input type="text" class="form-control" id=answer-${questionsList[i].id} > </div> 
-                                <div class="col-3 "> </div>  
+                let areaHTML = `<div class="col-6 col-md-3"> <input type="text" class="form-control" id=answer-${questionsList[i].id} > </div> 
+                                <div class="col-md-3 "> </div>  
                                 </div>`
                 divExam.insertAdjacentHTML('beforeend',`<div class="row p-2"> 
-                                                       <div class="col-3 "> </div> 
-                                                       <div class="col-3 "> ${questionsList[i].question}</div>  ${areaHTML}` )
+                                                       <div class="col-md-3"> </div> 
+                                                       <div class="col-6 col-md-3"> ${questionsList[i].question}</div>  ${areaHTML}` )
             }
            // divExam.insertAdjacentHTML('beforeend','</div>')
             let btnCheck = '<input class="btn btn-primary d-flex" type="button" value="CHECK" id="btnCheck" onClick=checkResults() data-bs-toggle="modal" data-bs-target="#staticBackdrop">'
@@ -99,11 +107,10 @@
                 
    
             }
-
+            
                     
         }
 
-        
     
 
 </script>

@@ -9,17 +9,61 @@
 
     {% block head %} {% endblock %}
 </head>
+
 <body>
-    <nav class="nav bg-secondary">
-        <a class="nav-link active text-white" aria-current="page" href="#">Sign Up</a>
-        <a class="nav-link text-white" href="/">Exams Simulation</a>
-        <a class="nav-link text-white" href="/add-questions">Add questions</a>
-        <a class="nav-link text-white" href="#">Change/Remove questions</a>
+    <nav class="navbar navbar-expand-md navbar-light bg-light  sticky-top">
+        <div class="container-fluid">
         
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link " id="link1" aria-current="page" href="#">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " id="link2" href="/">Exams  Simulation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " id="link3" href="/add-questions">Add questions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " id="link4" href="#">Change/Remove questions</a>
+                </li>
+
+            </ul>
+          </div>
+        </div>
       </nav>
+   
     {%block body%} {% endblock%}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 </body>
+<script>
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                let btnAll = document.querySelectorAll(".nav-link")
+                let l1 = document.getElementById('link1')
+                l1.addEventListener('click', () => { pillsNav("link1") })
+                let l2 = document.getElementById('link2')
+                l2.addEventListener('click', () => { pillsNav("link2") })
+                let l3 = document.getElementById('link3')
+                l3.addEventListener('click', () => { pillsNav("link3") })
+                let l4 = document.getElementById('link4')
+                l4.addEventListener('click', () => { pillsNav("link4") })
+
+                function pillsNav(current) {
+                    
+                    for (let b of btnAll) {
+                        if (b.getAttribute('id') == current)  b.classList.add('active')
+                        else b.classList.remove('active')
+                    }
+                }
+            } //if
+        }//main function
+   
+</script>
 </html>
