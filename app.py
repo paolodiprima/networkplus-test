@@ -9,8 +9,11 @@ app = Flask(__name__)
 
 #init db
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///networkplus.db'
+
+print("os.environ.get('DATABASE_URL') ==> " + str(os.environ.get('DATABASE_URL')))
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 #init ma
