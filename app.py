@@ -2,6 +2,7 @@ from  flask import Flask , render_template, request, jsonify
 from  flask_sqlalchemy import SQLAlchemy
 from  flask_marshmallow import Marshmallow
 import os
+import re
 import random
 
 # init app
@@ -11,7 +12,12 @@ app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 print("os.environ.get('DATABASE_URL') ==> " + str(os.environ.get('DATABASE_URL')))
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+db_url = os.environ.get('DATABASE_URL')
+
+if db_url != None and db_url.startswith("postgres://"):
+     db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
