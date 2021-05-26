@@ -31,7 +31,7 @@ ma = Marshmallow(app)
 
 class Questions(db.Model):
     
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, db.Identity(start=38, cycle=True), primary_key=True)
     chapter = db.Column(db.Integer)
     topic = db.Column(db.String(30))
     question = db.Column(db.String(100),nullable=False)
