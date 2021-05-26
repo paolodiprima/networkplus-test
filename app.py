@@ -1,15 +1,15 @@
 from  flask import Flask , render_template, request, jsonify
 from  flask_sqlalchemy import SQLAlchemy
 from  flask_marshmallow import Marshmallow
-from  flask_cors import CORS, cross_origin
+from  flask_cors import CORS
+
 import os
 import re
 import random
 
 # init app
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 
 #init db
@@ -57,7 +57,6 @@ def index():
 
 # api: insert a new question
 @app.route('/api-question',methods=['POST'])
-@cross_origin()
 def add_question():
     chapter = request.json['chapter']
     topic = request.json['topic']
@@ -72,7 +71,6 @@ def add_question():
 
 # api: delete question
 @app.route('/api-delete/<id>',methods=['DELETE'])
-@cross_origin()
 def delete_question(id):
     question_to_delete = Questions.query.get(id)
     db.session.delete(question_to_delete)
